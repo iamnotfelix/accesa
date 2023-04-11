@@ -1,8 +1,9 @@
-import { Container, Card, CardContent, IconButton, CardActions, Button, Typography, TextField, MenuItem } from "@mui/material";
+import { Container, Card, CardContent, IconButton, CardActions, Button, Typography, TextField, MenuItem, Alert } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useEffect, useState } from "react";
 import { User } from "../../Models/User";
+import { UsersTable } from "../../Components/UsersTable";
 
 export const QuestsDelete = () => {
 	const params = useParams();
@@ -12,6 +13,9 @@ export const QuestsDelete = () => {
     const [userId, setUserId] = useState("");
     const [loading, setLoading] = useState(false);
     const [users, setUsers] = useState([]);
+
+    const [alert, setAlert] = useState(false);
+    const [alertContent, setAlertContent] = useState("");
 
 
     useEffect(() => {
@@ -27,11 +31,21 @@ export const QuestsDelete = () => {
 
 	const handleDelete = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
-        const response = fetch(import.meta.env.VITE_REACT_API_BACKEND + `/users/${params.id}/${userId}/${key}`,{
+
+        const response = fetch(import.meta.env.VITE_REACT_API_BACKEND + `/quests/${params.id}/${userId}/${key}`,{
             method: 'DELETE',
             mode: 'cors'
         });
-		navigate("/quests");
+
+        if (!(await response).ok) {
+            setAlert(true);
+            setAlertContent("Key is invalid!");
+        } else {
+            setAlert(false);
+            navigate("/quests");
+        }
+
+
 	};
 
 	const handleCancel = (event: { preventDefault: () => void }) => {
@@ -41,6 +55,7 @@ export const QuestsDelete = () => {
 
 	return (
 		<Container>
+            {alert ? <Alert severity="error">{alertContent}</Alert> : <></>}
 			<Card>
 				<CardContent>
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/quests/${params.id}`}>

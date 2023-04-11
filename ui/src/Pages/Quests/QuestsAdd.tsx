@@ -1,4 +1,4 @@
-import { Box, Button, FormGroup, MenuItem, TextField } from "@mui/material"
+import { Alert, Box, Button, FormGroup, MenuItem, TextField } from "@mui/material"
 import * as React from 'react';
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,9 @@ export const QuestsAdd = () => {
 
     const [loading, setLoading] = React.useState(false);
     const [users, setUsers] = useState([]);
+
+    const [alert, setAlert] = useState(false);
+    const [alertContent, setAlertContent] = useState("");
 
     const navigate = useNavigate();
 
@@ -45,23 +48,19 @@ export const QuestsAdd = () => {
             body: JSON.stringify(body)
         });
         
-        navigate("/quests");
-
-        
-        //handle failure
-        const {data, errors} = await response.json()
-        console.log(data, errors);
-        // if (response.ok) {
-        //    console.log("ok");
-        // } else {
-        //     //const error = new Error(errors?.map(e => e.message).join('\n') ?? 'unknown')
-        //     //return Promise.reject(error)
-        // }
+        if (!(await response).ok) {
+            setAlert(true);
+            setAlertContent("Some fields are invalid or the user doesn't have enough points.");
+        } else {
+            setAlert(false);
+            navigate("/quests");
+        }
     }
 
 
     return (
         <Box>
+            {alert ? <Alert severity="error">{alertContent}</Alert> : <></>}
             <FormGroup sx={{ display: "flex", alignItems: "center"}}>
                 <TextField
                     required
