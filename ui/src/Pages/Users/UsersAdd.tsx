@@ -1,4 +1,4 @@
-import { Box, Button, FormGroup, TextField } from "@mui/material"
+import { Alert, Box, Button, FormGroup, TextField } from "@mui/material"
 import * as React from 'react';
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,9 @@ export const UsersAdd = () => {
     const [name, setName] = useState("");
     const [points, setPoints] = useState(0);
 
+    const [alert, setAlert] = useState(false);
+    const [alertContent, setAlertContent] = useState("");
+
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
@@ -14,7 +17,7 @@ export const UsersAdd = () => {
             name: name,
             points: points
         }
-        // console.log(JSON.stringify(body))
+        
         const response = await window.fetch(import.meta.env.VITE_REACT_API_BACKEND + `/users`, {
             method: 'POST',
             mode: 'cors',
@@ -24,23 +27,19 @@ export const UsersAdd = () => {
             body: JSON.stringify(body)
         });
         
-        navigate("/users");
-
-        
-        //handle failure
-        const {data, errors} = await response.json()
-        console.log(data, errors);
-        // if (response.ok) {
-        //    console.log("ok");
-        // } else {
-        //     //const error = new Error(errors?.map(e => e.message).join('\n') ?? 'unknown')
-        //     //return Promise.reject(error)
-        // }
+        if (!(await response).ok) {
+            setAlert(true);
+            setAlertContent("Some field is invalid!");
+        } else {
+            setAlert(false);
+            navigate("/users");
+        }
     }
 
 
     return (
         <Box>
+            {alert ? <Alert severity="error">{alertContent}</Alert> : <></>}
             <FormGroup sx={{ display: "flex", alignItems: "center"}}>
                 <TextField
                     type="text"
