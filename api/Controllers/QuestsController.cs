@@ -115,8 +115,8 @@ namespace accesa.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}/{key}")]
-        public ActionResult DeleteQuest(Guid id, string key)
+        [HttpDelete("{id}/{userId}/{key}")]
+        public ActionResult DeleteQuest(Guid id, Guid userId, string key)
         {
             var quest = this.context.Quests.Find(id);
             if (quest is null)
@@ -124,11 +124,26 @@ namespace accesa.Controllers
                 return NotFound("Quest not found.");
             }
 
+            var user = this.context.Users.Find(userId);
+            if (user is null)
+            {
+                return NotFound("User not found.");
+            }
+
             if (quest.Key != key)
             {
                 return ValidationProblem("Quest cannot be solved, the key does not correspond.");
             }
 
+            user.Points += quest.Points;
+            var badge = new Badge 
+            {
+                Id = Guid.NewGuid(),
+                Title = quest.Name,
+                UserId = userId
+            };
+
+            this.context.Badges.Add(badge);
             this.context.Quests.Remove(quest);
             this.context.SaveChanges();
 
