@@ -1,22 +1,30 @@
-import { Box, Button, FormGroup, TextField } from "@mui/material"
+import { Box, Button, FormGroup, MenuItem, TextField } from "@mui/material"
+import * as React from 'react';
 import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
+import { User } from "../../Models/User";
 
-export const UsersUpdate = () => {
-    const params = useParams();
+export const QuestsUpdate = () => {
+    const params = useParams()
 
     const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
     const [points, setPoints] = useState(0);
+    const [key, setKey] = useState("");
+
+    const [loading, setLoading] = React.useState(false);
 
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
         const body = {
             name: name,
-            points: points
+            description: description,
+            points: points,
+            key: key
         }
-        // console.log(JSON.stringify(body))
-        const response = await window.fetch(import.meta.env.VITE_REACT_API_BACKEND + `/users/${params.id}`, {
+        
+        const response = await window.fetch(import.meta.env.VITE_REACT_API_BACKEND + `/quests/${params.id}`, {
             method: 'PUT',
             mode: 'cors',
             headers: {
@@ -25,7 +33,7 @@ export const UsersUpdate = () => {
             body: JSON.stringify(body)
         });
         
-        navigate("/users");
+        navigate("/quests");
 
         
         //handle failure
@@ -44,6 +52,7 @@ export const UsersUpdate = () => {
         <Box>
             <FormGroup sx={{ display: "flex", alignItems: "center"}}>
                 <TextField
+                    required
                     type="text"
                     variant='outlined'
                     color='primary'
@@ -54,15 +63,37 @@ export const UsersUpdate = () => {
                     sx={{m: 2, width: "50ch"}}
                 />
                 <TextField
+                    required
+                    type="text"
+                    variant='outlined'
+                    color='primary'
+                    label="Description"
+                    onChange={e => setDescription(e.target.value)}
+                    value={description}
+                    fullWidth
+                    sx={{m: 2, width: "50ch"}}
+                />
+                <TextField
                     type="number"
                     variant='outlined'
                     color='primary'
-                    label="Amount"
+                    label="Points"
                     onChange={e => setPoints(parseInt(e.target.value))}
                     fullWidth
                     value={points}
                     required
                     sx={{m: 2, width: "25ch"}}
+                />
+                <TextField
+                    required
+                    type="text"
+                    variant='outlined'
+                    color='primary'
+                    label="Key"
+                    onChange={e => setKey(e.target.value)}
+                    value={key}
+                    fullWidth
+                    sx={{m: 2, width: "50ch"}}
                 />
                 <Button variant="outlined" color="primary" type="submit" sx={{m: 4, width: "25ch"}} onClick={handleSubmit}>Update</Button>
             </FormGroup>
