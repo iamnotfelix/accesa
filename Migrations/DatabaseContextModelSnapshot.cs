@@ -63,7 +63,7 @@ namespace accesa.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Quests");
                 });
 
             modelBuilder.Entity("accesa.Models.User", b =>

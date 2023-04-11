@@ -11,7 +11,7 @@ using moneyManager.Repositories;
 namespace accesa.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230411082616_Migration1")]
+    [Migration("20230411091330_Migration1")]
     partial class Migration1
     {
         /// <inheritdoc />
@@ -66,7 +66,7 @@ namespace accesa.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Quests");
                 });
 
             modelBuilder.Entity("accesa.Models.User", b =>

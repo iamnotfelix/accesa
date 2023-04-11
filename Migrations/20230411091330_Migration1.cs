@@ -49,7 +49,7 @@ namespace accesa.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Expenses",
+                name: "Quests",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
@@ -61,9 +61,9 @@ namespace accesa.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Expenses", x => x.Id);
+                    table.PrimaryKey("PK_Quests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Expenses_Users_UserId",
+                        name: "FK_Quests_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -77,8 +77,8 @@ namespace accesa.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Expenses_UserId",
-                table: "Expenses",
+                name: "IX_Quests_UserId",
+                table: "Quests",
                 column: "UserId");
         }
 
@@ -89,7 +89,7 @@ namespace accesa.Migrations
                 name: "Badges");
 
             migrationBuilder.DropTable(
-                name: "Expenses");
+                name: "Quests");
 
             migrationBuilder.DropTable(
                 name: "Users");
