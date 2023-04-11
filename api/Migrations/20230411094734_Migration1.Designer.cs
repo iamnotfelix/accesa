@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using moneyManager.Repositories;
+using accesa.Repositories;
 
 #nullable disable
 
 namespace accesa.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230411091330_Migration1")]
+    [Migration("20230411094734_Migration1")]
     partial class Migration1
     {
         /// <inheritdoc />

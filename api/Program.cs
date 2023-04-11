@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using moneyManager.Repositories;
+using accesa.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

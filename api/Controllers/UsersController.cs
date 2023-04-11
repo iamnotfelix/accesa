@@ -2,7 +2,7 @@ using accesa.Dtos.Users;
 using accesa.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using moneyManager.Repositories;
+using accesa.Repositories;
 
 namespace accesa.Controllers
 {

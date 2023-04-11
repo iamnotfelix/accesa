@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using accesa.Models;
 using MySql.EntityFrameworkCore.Extensions;
 
-namespace moneyManager.Repositories
+namespace accesa.Repositories
 {
     public class DatabaseContext : DbContext
     {
