@@ -2,9 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace accesa.Dtos.Users
 {
-    public record CreateUserDto
+    public record UpdateUserDto
     {
-        [Required]
         public string? Name { get; set; }
         public int Points { get; set; }
     }
