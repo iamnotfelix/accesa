@@ -10,7 +10,7 @@ namespace moneyManager.Repositories
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
         public virtual DbSet<User> Users { get; set; } = null!;
-        public virtual DbSet<Quest> Expenses { get; set; } = null!;
+        public virtual DbSet<Quest> Quests { get; set; } = null!;
         public virtual DbSet<Badge> Badges { get; set; } = null!;
 
         // protected override void OnModelCreating(ModelBuilder modelBuilder) 
