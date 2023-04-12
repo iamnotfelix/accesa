@@ -7,9 +7,9 @@ export const Home = () => {
             <Typography variant="h1">Home</Typography>
         </Stack>
         <Stack alignItems="center" mt={4}>
-            <Typography variant="h3">
+            {/* <Typography variant="h3">
                 *project description*
-            </Typography>
+            </Typography> */}
         </Stack>
         </div>
     );
